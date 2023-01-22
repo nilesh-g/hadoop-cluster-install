@@ -59,7 +59,7 @@ This beginner's tutorial is written purely for educational purposes. This reposi
     * terminal> cd ~
     * terminal> vim ~/.bashrc
         ```sh
-        export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+        export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
         export HADOOP_HOME=$HOME/hadoop-3.3.2
         export PATH=$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$PATH
         ```
@@ -67,7 +67,8 @@ This beginner's tutorial is written purely for educational purposes. This reposi
     * terminal> git clone https://github.com/nilesh-g/hadoop-cluster-install.git
     * terminal> cp hadoop-cluster-install/master/* $HADOOP_HOME/etc/hadoop/
 * step 10: Examine the master configration.
-    * terminal> cd $HADOOP_HOME/conf
+    * terminal> cd $HADOOP_HOME/etc/hadoop/
+    * terminal> vim core-site.xml
     * terminal> vim hadoop-env.sh
     * terminal> vim hdfs-site.xml
     * terminal> vim mapred-site.xml
@@ -92,9 +93,10 @@ This beginner's tutorial is written purely for educational purposes. This reposi
     * terminal> sudo ip a
     * terminal> sudo hostnamectl set-hostname worker1
     * terminal> cd ~
-    * terminal> cp hadoop-cluster-install/master/* $HADOOP_HOME/etc/hadoop/
+    * terminal> cp hadoop-cluster-install/worker/* $HADOOP_HOME/etc/hadoop/
 * step 13: Examine the worker configration.
-    * terminal> cd $HADOOP_HOME/conf
+    * terminal> cd $HADOOP_HOME/etc/hadoop/
+    * terminal> vim core-site.xml
     * terminal> vim hadoop-env.sh
     * terminal> vim hdfs-site.xml
     * terminal> vim mapred-site.xml
@@ -118,7 +120,7 @@ This beginner's tutorial is written purely for educational purposes. This reposi
     * terminal> sudo ip a
     * terminal> sudo hostnamectl set-hostname worker2
     * terminal> cd ~
-    * terminal> cp hadoop-cluster-install/master/* $HADOOP_HOME/etc/hadoop/
+    * terminal> cp hadoop-cluster-install/worker/* $HADOOP_HOME/etc/hadoop/
     * terminal> init 0
 * step 16: Create Linked Clone of this VM as "worker3".
 * step 17: Login into new VM with hduser and configure network and hadoop.
@@ -138,7 +140,7 @@ This beginner's tutorial is written purely for educational purposes. This reposi
     * terminal> sudo ip a
     * terminal> sudo hostnamectl set-hostname worker3
     * terminal> cd ~
-    * terminal> cp hadoop-cluster-install/master/* $HADOOP_HOME/etc/hadoop/
+    * terminal> cp hadoop-cluster-install/worker/* $HADOOP_HOME/etc/hadoop/
     * terminal> init 0
 * step 18: Start all VMs. Copy master ssh id on all workers. Ensure that master is able to login to itself and all workers without password over ssh.
     * master terminal> ssh-keygen -t rsa -P ""
@@ -156,7 +158,7 @@ This beginner's tutorial is written purely for educational purposes. This reposi
     * worker3 terminal> jps
 * step 20: Upload a file on HDFS to verify if cluster and replication is working properly.
     * master terminal> echo "Welcome to Hadoop cluster" > hello.txt
-    * master terminal> hadoop fs -put /
+    * master terminal> hadoop fs -put hello.txt /
     * master terminal> hadoop fs -ls /
     * master terminal> hadoop fs -cat /hello.txt
 * step 21: From the host machine access Hadoop web interface.
